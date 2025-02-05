@@ -11,7 +11,7 @@ const Router = (app)=>{
     app.use("/Product",Product)
     app.use("/Cart",Cart)
     app.use("/Order",Order)
-    app.use("/Categoy",Category)
+    app.use("/Category",Category)
     app.use("/Wishlist",Wishlist)
     app.use("/User",User)
 
