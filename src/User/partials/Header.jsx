@@ -1,10 +1,10 @@
 import React from 'react'
-
+import { NavLink } from "react-router-dom";
 const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light py-1 shadow-sm sticky-top" >
       <div className="container">
-        <a className="navbar-brand d-flex align-items-center" href="#">
+        <NavLink className="navbar-brand d-flex align-items-center" to={"/"}>
           <img
             src="https://food-order-web-xi.vercel.app/static/media/logo.0f99324454e3c3ccba98.png"
             alt="Logo"
@@ -13,7 +13,7 @@ const Header = () => {
           />
 
           <span className="fw-bold ms-3">Way</span>
-        </a>
+        </NavLink>
         <button
           className="navbar-toggler"
           type="button"
@@ -42,21 +42,73 @@ const Header = () => {
                 Services
               </a>
             </li>
-            <li className="nav-item ms-4">
-              <a className="nav-link" href="#cart">
-                <img src="https://via.placeholder.com/20" alt="Cart" />
+            <li className="nav-item ms-5">
+              <div className="nav-link position-relative">
+                <NavLink
+                  to={"cart"}
+                  className="bi bi-basket2"
+                  style={{
+                    fontSize: "1.1rem", // Smaller size for the cart icon
+                    color: "gray",
+                  }}
+                ></NavLink>
+                <span
+                  className="position-absolute top-28 start-90 translate-middle badge rounded-circle bg-danger"
+                  style={{
+                    fontSize: "0.6rem", // Smaller font size for the badge
+                    padding: "0.2rem 0.4rem", // Adjust padding for smaller badge
+                    transform: "translate(50%, -50%)", // Fine-tune positioning for smaller size
+                  }}
+                >
+                  1
+                </span>
+              </div>
+
+
+            </li>
+            <li className="nav-item dropdown ms-5">
+              <a
+                className="nav-link dropdown-toggle"
+
+                id="userDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  width="30"
+                  height="30"
+                  src="https://img.icons8.com/fluency/30/user-male-circle.png"
+                  alt="user-male-circle"
+                />
               </a>
+              <ul className="dropdown-menu dropdown-menu-start" aria-labelledby="userDropdown">
+                <li>
+
+                  <NavLink to={"/login"} className="dropdown-item bg-white text-dark" >Login</NavLink>
+                </li>
+                <li>
+                  <NavLink to={"/register"} className="dropdown-item bg-white text-dark" >Register</NavLink>
+                </li>
+                <li>
+                  <NavLink to={"/profile"} className="dropdown-item bg-white text-dark" >Profile</NavLink>
+                </li>
+
+
+                <li><hr className="dropdown-divider" /></li>
+                <li>
+                  <NavLink to={"/"} className="dropdown-item bg-white text-dark" >Logout</NavLink>
+                </li>
+              </ul>
             </li>
 
-            <li className="nav-item ms-4">
-              <a className="nav-link" href="#menu">
-                Menu
-              </a>
-            </li>
+
+
           </ul>
 
         </div>
       </div>
+      
     </nav>
   )
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import ListFood from "./ListFood";
 import ListCategory from "./ListCategory";
-
+import { NavLink } from "react-router-dom";
 const Index = () => {
   const products = [
     { id: 1, name: "Icecream", description: "Chocolate & vanilla", price: 5.25, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },

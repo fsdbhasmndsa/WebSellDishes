@@ -12,3 +12,48 @@ code {
     monospace;
 }
 
+
+.product-title {
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-add-to-cart {
+  background: linear-gradient(45deg, #ff7e5f, #feb47b);
+  border: none;
+}
+
+.btn-add-to-cart:hover {
+  background: linear-gradient(45deg, #feb47b, #ff7e5f);
+}
+
+.product-price {
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* Nút Add to Cart */
+.btn-add-to-cart {
+ 
+ 
+ 
+}
+
+.btn-add-to-cart:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Nút Wishlist */
+.btn-wishlist {
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-wishlist:hover {
+  background-color: #ffe6e6;
+  transform: scale(1.05);
+}
+
