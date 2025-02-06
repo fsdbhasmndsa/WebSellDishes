@@ -3,7 +3,7 @@ const Product =  require("../Schema/productSchema")
 
 module.exports.GetAll = async (req, res) => {
 
-    const items = await Category.find().select("name description URL_IMG").lean()
+    const items = await Category.find().select("name  ").lean()
 
     res.json({ message: "Get successful", items: items })
 

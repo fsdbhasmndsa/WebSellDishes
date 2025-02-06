@@ -6,7 +6,7 @@ const Product =  require("../Schema/productSchema")
 
 module.exports.GET_ALL = async (req,res) =>{
 
-   const items =  await Product.find().select("-createdAt -updatedAt category").lean();
+   const items =  await Product.find().select("-createdAt -updatedAt -description ").lean();
    
     res.json({message:"running",items:items})
 }

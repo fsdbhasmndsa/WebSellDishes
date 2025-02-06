@@ -10,13 +10,12 @@ const app = express()
 const port =  8080
 dotenv.config()
 
+app.use(express.json()); // Thay thế bodyParser.json()
+app.use(express.urlencoded({ extended: true })); // Thay thế bodyParser.urlencoded()
+
 Router(app)
 Database.Connect()
 
-// Sử dụng body-parser để phân tích dữ liệu JSON
-app.use(bodyParser.json());
-// Sử dụng body-parser để phân tích dữ liệu URL-encoded
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
