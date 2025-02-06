@@ -1,28 +1,37 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom';
 
 const ListFood = () => {
-    const fruits = [
-        { id: 1, name: "Strawberries", calories: 95, price: 20, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
-        { id: 2, name: "Pine Apple", calories: 100, price: 16, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
-        { id: 3, name: "Raspberry", calories: 65, price: 20, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
-        { id: 4, name: "Pomegranate", calories: 120, price: 15, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
-        { id: 5, name: "Blue Berries", calories: 80, price: 12, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
-        { id: 5, name: "Blue Berries", calories: 80, price: 12, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
-        { id: 5, name: "Blue Berries", calories: 80, price: 12, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
-        { id: 5, name: "Blue Berries", calories: 80, price: 12, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
-    ];
-    
-     
-      return (
-        <div className="container-fluid py-5">
-          {/* Fresh & Healthy Fruits Section */}
-          <div className="mb-5">
-       
+  const [Listfruits, setListfruits] = useState([])
+
+  const callAPIGetFruit = async () => {
+    const res = await axios({ url: "http://localhost:8080/Product/getALL", method: "GET" })
+    setListfruits(res.data.items);
+  }
+
+  useEffect(() => {
+    callAPIGetFruit()
+  }, [])
+
+  const handleAddToCart = (event, fruit) => {
+    event.stopPropagation(); // Ngăn NavLink kích hoạt
+    event.preventDefault(); // Ngăn điều hướng khi bấm vào nút
+    console.log("Thêm vào giỏ hàng:", fruit);
+  };
+
+  return (
+    <div className="container-fluid py-5">
+      {/* Fresh & Healthy Fruits Section */}
+      <div className="mb-5">
+
 
         <div className="row g-3">
-          {fruits.map((fruit) => (
-            <div
-              key={fruit.id}
+          {Listfruits.map((fruit) => (
+            <NavLink
+              to={`productDetail/${fruit._id}`}
+              style={{ textDecoration: "none" }}
+              key={fruit._id}
               className="col-12 col-md-4 col-lg-3 d-flex align-items-stretch"
             >
               <div
@@ -35,11 +44,11 @@ const ListFood = () => {
                 }}
               >
                 <img
-                  src={fruit.img}
+                  src={fruit.imageUrl}
                   alt={fruit.name}
                   className="img-fluid"
                   style={{
-                    width: "120px",
+                    width: "140px",
                     height: "120px",
                     objectFit: "cover",
                     borderTopLeftRadius: "20px",
@@ -49,7 +58,7 @@ const ListFood = () => {
                 <div className="card-body d-flex flex-column justify-content-between">
                   <div>
                     <h5 className="fw-bold" style={{ fontSize: "1rem" }}>{fruit.name}</h5>
-                    <p className="text-muted" style={{ fontSize: "0.9rem" }}>{fruit.calories} Calories</p>
+                    <p className="text-muted" style={{ fontSize: "0.9rem" }}>120 Calories</p>
                     <h6 className="text-danger fw-bold" style={{ fontSize: "1.1rem" }}>${fruit.price}</h6>
                   </div>
                   <button
@@ -59,24 +68,25 @@ const ListFood = () => {
                       boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
                       alignSelf: "center",
                     }}
+                    onClick={(event) => handleAddToCart(event, fruit)}
                   >
                     <i className="bi bi-cart"></i>
                   </button>
                 </div>
               </div>
-            </div>
+            </NavLink>
           ))}
         </div>
       </div>
 
       {/* Hot Dishes Section */}
       <div>
-        
 
-      
+
+
       </div>
-        </div>
-      );
-    };
+    </div>
+  );
+};
 
 export default ListFood

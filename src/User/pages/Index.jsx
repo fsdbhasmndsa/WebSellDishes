@@ -137,7 +137,7 @@ const Index = () => {
           <hr className="text-danger" style={{ width: "50px", height: "6px" }} />
         </div>
         <ListCategory></ListCategory>
-        <ListFood></ListFood>
+       
 
       </main>
 

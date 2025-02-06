@@ -8,8 +8,12 @@ import Register from './User/pages/Register';
 import Cart from './User/pages/Cart';
 import ProductDetail from './User/pages/ProductDetail';
 import AccountManagement from './User/pages/AccountManagement ';
+import { ToastContainer } from 'react-toastify';
+import { Provider } from 'react-redux';
+import store from './User/Reducer/Store';
 function App() {
   return (
+  <Provider store={store}>
    <BrowserRouter>
    <Routes>
 
@@ -28,8 +32,9 @@ function App() {
    </Routes>
    
    
-   
+   <ToastContainer autoClose={3000} pauseOnHover={false} pauseOnFocusLoss={false} ></ToastContainer>
    </BrowserRouter>
+   </Provider>
   );
 }
 

@@ -1,11 +1,51 @@
+import axios from 'axios';
+import { useFormik } from 'formik'
 import React from 'react'
-
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify'
+import * as Yup from "yup";
 const Register = () => {
+  const navigate = useNavigate()
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+      phonenumber: "",
+      fullname: ""
+    },
+    validationSchema: Yup.object({
+      phonenumber: Yup.string().required("Phone number is required"),
+      fullname: Yup.string().required("FullName is required"),
+      username: Yup.string().required("Username number is required"),
+      password: Yup.string().required("Password number is required"),
+
+    }),
+    onSubmit: async (values) => {
+      console.log("values", values)
+      const res = await axios({
+        url: "http://localhost:8080/User/register", method: "POST", data: values, headers: {
+          "Content-Type": "application/json"
+        }
+      })
+
+      if (res.data.code == 200) {
+        toast.success("Register successful")
+
+        navigate("/login")
+      }
+      else {
+        toast.error("Username exitst")
+
+      }
+    }
+  })
+
+
   return (
     <div
       className="container-fluid d-flex align-items-center justify-content-center pb-5"
       style={{
-        backgroundColor: "#f8f9fa",minHeight:600
+        backgroundColor: "#f8f9fa", minHeight: 600
       }}
     >
       <div className="row align-items-center justify-content-between w-100">
@@ -75,20 +115,23 @@ const Register = () => {
             <h4 className="text-center fw-bold mb-4" style={{ color: "#3a3d3d" }}>
               Create Your Account
             </h4>
-            <form>
+            <form onSubmit={formik.handleSubmit}>
               {/* Fullname Field */}
-              <div className="mb-4">
+              <div className="mb-3">
                 <label
                   htmlFor="fullname"
+
                   className="form-label fw-bold"
                   style={{ color: "#3a3d3d" }}
                 >
                   Full Name
                 </label>
                 <input
+                  onChange={formik.handleChange}
                   type="text"
                   className="form-control"
                   id="fullname"
+                  name='fullname'
                   placeholder="Enter your full name"
                   style={{
                     borderRadius: "10px",
@@ -96,28 +139,59 @@ const Register = () => {
                     backgroundColor: "#e8f7e4",
                   }}
                 />
+                {formik.errors.fullname && <i className='text-danger'>{formik.errors.fullname}</i>}
               </div>
-              
+
               {/* Email Field */}
-              <div className="mb-4">
+              <div className="mb-3">
                 <label
                   htmlFor="email"
                   className="form-label fw-bold"
                   style={{ color: "#3a3d3d" }}
                 >
-                  Email Address
+                  Phone number
                 </label>
                 <input
-                  type="email"
+                  onChange={formik.handleChange}
+                  type="number"
                   className="form-control"
-                  id="email"
-                  placeholder="Enter your email"
+                  id="number"
+                  name='phonenumber'
+                  placeholder="Enter your phone number"
                   style={{
                     borderRadius: "10px",
                     border: "none",
                     backgroundColor: "#e8f7e4",
                   }}
                 />
+
+                {formik.errors.phonenumber && <i className='text-danger'>{formik.errors.phonenumber}</i>}
+              </div>
+
+              {/* Email Field */}
+              <div className="mb-3">
+                <label
+                  htmlFor="email"
+                  className="form-label fw-bold"
+                  style={{ color: "#3a3d3d" }}
+                >
+                  Username
+                </label>
+                <input
+                  onChange={formik.handleChange}
+                  type="text"
+                  className="form-control"
+                  id="username"
+                  name='username'
+                  placeholder="Enter your username"
+                  style={{
+                    borderRadius: "10px",
+                    border: "none",
+                    backgroundColor: "#e8f7e4",
+                  }}
+                />
+
+                {formik.errors.username && <i className='text-danger'>{formik.errors.username}</i>}
               </div>
 
               {/* Password Field */}
@@ -130,9 +204,11 @@ const Register = () => {
                   Password
                 </label>
                 <input
+                  onChange={formik.handleChange}
                   type="password"
                   className="form-control"
                   id="password"
+                  name='password'
                   placeholder="Enter your password"
                   style={{
                     borderRadius: "10px",
@@ -140,6 +216,8 @@ const Register = () => {
                     backgroundColor: "#e8f7e4",
                   }}
                 />
+
+                {formik.errors.password && <i className='text-danger'>{formik.errors.password}</i>}
               </div>
 
               {/* Submit Button */}

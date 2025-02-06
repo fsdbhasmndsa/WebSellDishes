@@ -1,6 +1,22 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const ProductDetail = () => {
+
+  const [Product,SetProduct] =  useState({})
+  const param =  useParams();
+
+  const callAPIProductDetail = async () =>{
+    const res = await axios({url:`http://localhost:8080/Product/getDetailProduct/${param.id}`,method:"GET"});
+    SetProduct(res.data.items)
+  }
+
+  useEffect(()=>{
+    callAPIProductDetail()
+  },[])
+
+
   return (
     <div className="container-fluid py-5">
       {/* Product Section */}
@@ -8,7 +24,7 @@ const ProductDetail = () => {
         {/* Product Image */}
         <div className="col-md-6 text-center">
           <img
-            src="https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png"
+            src={`${Product.imageUrl}`}
             className="img-fluid rounded shadow-lg border border-3 w-75 border-primary"
             alt="Product"
           />
@@ -16,9 +32,9 @@ const ProductDetail = () => {
 
         {/* Product Info */}
         <div className="col-md-6">
-          <h1 className="product-title text-gradient">Amazing Product Name</h1>
+          <h1 className="product-title text-gradient">{Product.name}</h1>
           <p className="text-muted">
-            Category: <span className="fw-bold text-success">Gadgets</span>
+            Category: <span className="fw-bold text-success">{Product?.category?.name}</span>
           </p>
 
           {/* Rating */}
@@ -34,7 +50,7 @@ const ProductDetail = () => {
           </div>
 
           {/* Price */}
-          <p className="product-price text-danger">$199.99</p>
+          <p className="product-price text-danger">${Product.price}</p>
 
           {/* Quantity and Add to Cart */}
           <div className="d-flex align-items-center mb-4">
@@ -67,11 +83,7 @@ const ProductDetail = () => {
       <div className="mt-5">
         <h2 className="description-title text-primary">Product Description</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod,
-          urna eu tincidunt consectetur, nisi nisl aliquet magna, a volutpat
-          eros nulla et erat. Morbi interdum, erat quis tincidunt convallis,
-          lectus elit pharetra lectus, non congue massa elit a nisi. Aliquam et
-          sapien nec eros eleifend eleifend.
+         {Product.description}
         </p>
       </div>
         </div>

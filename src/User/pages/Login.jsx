@@ -1,11 +1,53 @@
+import axios from 'axios';
+import { useFormik } from 'formik'
 import React from 'react'
-
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import * as Yup from "yup";
+import { loginSuccess } from '../Reducer/authSlice';
+import { useDispatch } from 'react-redux';
 const Login = () => {
+  const navigate =  useNavigate();
+  const dispatch = useDispatch();
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: ""
+    },
+    validationSchema: Yup.object({
+
+      username: Yup.string().required("Bắt buộc nhập email"),
+      password: Yup.string().required("Bắt buộc nhập mật khẩu"),
+
+    }),
+    onSubmit: async (values) => {
+      console.log("values", values)
+      const res = await axios({
+        url: "http://localhost:8080/User/Login", method: "POST", data: values, headers: {
+          "Content-Type": "application/json"
+        }
+      })
+
+      if(res.data.code == 200 )
+      {
+        toast.success("Login successful")
+        dispatch(loginSuccess(res.data.Token))
+        navigate("/")
+      }
+      else
+      {
+        toast.error("Login failed")
+        navigate("/login")
+      }
+    }
+  })
+
+
   return (
     <div
       className="container-fluid d-flex align-items-center justify-content-center pb-5"
       style={{
-        backgroundColor: "#f8f9fa",minHeight:600
+        backgroundColor: "#f8f9fa", minHeight: 600
       }}
     >
       <div className="row align-items-center justify-content-between w-100">
@@ -75,14 +117,14 @@ const Login = () => {
             <h4 className="text-center fw-bold mb-4" style={{ color: "#3a3d3d" }}>
               Welcome Back!
             </h4>
-            <form>
+            <form onSubmit={formik.handleSubmit}>
               <div className="mb-4">
                 <label
                   htmlFor="email"
                   className="form-label fw-bold"
                   style={{ color: "#3a3d3d" }}
                 >
-                  Email Address
+                  Username
                 </label>
                 <div className="input-group">
                   <span
@@ -93,20 +135,24 @@ const Login = () => {
                       borderRadius: "10px 0 0 10px",
                     }}
                   >
-                    <i className="bi bi-envelope" style={{ color: "#6c757d" }}></i>
+                    <i className="bi bi-person" style={{ color: "#6c757d" }}></i>
                   </span>
                   <input
-                    type="email"
+                    type="text"
+                    onChange={formik.handleChange}
                     className="form-control"
-                    id="email"
-                    placeholder="Enter your email"
+                    id="username"
+                    name='username'
+                    placeholder="Enter your username"
                     style={{
                       borderRadius: "0 10px 10px 0",
                       border: "none",
                       backgroundColor: "#e8f7e4",
                     }}
                   />
+
                 </div>
+                {formik.errors.username && <i className='text-danger'>{formik.errors.username}</i>}
               </div>
               <div className="mb-4">
                 <label
@@ -128,9 +174,11 @@ const Login = () => {
                     <i className="bi bi-lock" style={{ color: "#6c757d" }}></i>
                   </span>
                   <input
+                    onChange={formik.handleChange}
                     type="password"
                     className="form-control"
                     id="password"
+                    name='password'
                     placeholder="Enter your password"
                     style={{
                       borderRadius: "0 10px 10px 0",
@@ -139,7 +187,9 @@ const Login = () => {
                     }}
                   />
                 </div>
+                {formik.errors.password && <i className='text-danger'>{formik.errors.password}</i>}
               </div>
+
               <div className="text-end mb-3">
                 <a href="#" className="text-success fw-bold" style={{ fontSize: "0.9rem" }}>
                   Forgot Password?

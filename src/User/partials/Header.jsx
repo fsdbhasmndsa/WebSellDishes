@@ -1,6 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
+import { logout } from '../Reducer/authSlice';
 const Header = () => {
+
+  const Token = useSelector((state) => state.auth.Token);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("Token", Token)
+  }, [Token])
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light py-1 shadow-sm sticky-top" >
       <div className="container">
@@ -83,22 +93,30 @@ const Header = () => {
                 />
               </a>
               <ul className="dropdown-menu dropdown-menu-start" aria-labelledby="userDropdown">
-                <li>
-
-                  <NavLink to={"/login"} className="dropdown-item bg-white text-dark" >Login</NavLink>
-                </li>
-                <li>
-                  <NavLink to={"/register"} className="dropdown-item bg-white text-dark" >Register</NavLink>
-                </li>
-                <li>
+                {Token ? <>  <li>
                   <NavLink to={"/profile"} className="dropdown-item bg-white text-dark" >Profile</NavLink>
                 </li>
 
 
-                <li><hr className="dropdown-divider" /></li>
-                <li>
-                  <NavLink to={"/"} className="dropdown-item bg-white text-dark" >Logout</NavLink>
-                </li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li>
+                    <NavLink to={"/"} onClick={()=>{
+                      dispatch(logout())
+                    }} className="dropdown-item bg-white text-dark" >Logout</NavLink>
+                  </li> </> : <>
+
+
+                  <li>
+
+                    <NavLink to={"/login"} className="dropdown-item bg-white text-dark" >Login</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to={"/register"} className="dropdown-item bg-white text-dark" >Register</NavLink>
+                  </li>
+                </>}
+
+
+
               </ul>
             </li>
 
@@ -108,7 +126,7 @@ const Header = () => {
 
         </div>
       </div>
-      
+
     </nav>
   )
 }
