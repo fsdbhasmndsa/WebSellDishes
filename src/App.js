@@ -7,6 +7,7 @@ import Login from './User/pages/Login';
 import Register from './User/pages/Register';
 import Cart from './User/pages/Cart';
 import ProductDetail from './User/pages/ProductDetail';
+import AccountManagement from './User/pages/AccountManagement ';
 function App() {
   return (
    <BrowserRouter>
@@ -19,7 +20,7 @@ function App() {
     <Route path='register' element={<Register></Register>}></Route>
     <Route path='cart' element={<Cart></Cart>}></Route>
     <Route path='productDetail/:id' element={<ProductDetail></ProductDetail>}></Route>
-
+    <Route path='profile' element={<AccountManagement></AccountManagement>}></Route>
     </Route>
 
 
