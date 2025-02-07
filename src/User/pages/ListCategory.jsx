@@ -1,10 +1,14 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
+import { AddItemAction } from "../Reducer/CartReducer";
+import { useDispatch } from "react-redux";
 
 const ListCategory = () => {
   const [listFruits, setListFruits] = useState([]);
   const [dishes, setDishes] = useState([]);
   const [active, setActive] = useState("");
+  const dishPatch = useDispatch();
 
   const fetchCategoriesAndDishes = useCallback(async () => {
     try {
@@ -47,9 +51,8 @@ const ListCategory = () => {
           <div
             key={dish._id}
             onClick={() => setActive(dish._id)}
-            className={`card text-center me-3 ${
-              dish._id === active ? "bg-danger text-white" : "bg-light"
-            }`}
+            className={`card text-center me-3 ${dish._id === active ? "bg-danger text-white" : "bg-light"
+              }`}
             style={{
               width: "100px",
               height: "100px",
@@ -74,9 +77,11 @@ const ListCategory = () => {
         <div className="mb-5">
           <div className="row g-3">
             {listFruits.map((fruit) => (
-              <div
+              <NavLink
+                to={`productDetail/${fruit._id}`}
                 key={fruit._id}
                 className="col-12 col-md-4 col-lg-3 d-flex align-items-stretch"
+                style={{textDecoration:'none'}}
               >
                 <div
                   className="card flex-row w-100"
@@ -112,6 +117,11 @@ const ListCategory = () => {
                       </h6>
                     </div>
                     <button
+                      onClick={(event) => {
+                        event.stopPropagation(); // Ngăn NavLink kích hoạt
+                        event.preventDefault(); // Ngăn điều hướng khi bấm vào nút
+                        dishPatch(AddItemAction(fruit))
+                      }}
                       className="btn btn-outline-danger btn-sm rounded-circle"
                       style={{
                         border: "none",
@@ -123,7 +133,7 @@ const ListCategory = () => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </NavLink>
             ))}
           </div>
         </div>

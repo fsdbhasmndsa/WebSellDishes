@@ -11,6 +11,7 @@ import AccountManagement from './User/pages/AccountManagement ';
 import { ToastContainer } from 'react-toastify';
 import { Provider } from 'react-redux';
 import store from './User/Reducer/Store';
+import CheckoutPage from './User/pages/CheckoutPage';
 function App() {
   return (
   <Provider store={store}>
@@ -25,6 +26,7 @@ function App() {
     <Route path='cart' element={<Cart></Cart>}></Route>
     <Route path='productDetail/:id' element={<ProductDetail></ProductDetail>}></Route>
     <Route path='profile' element={<AccountManagement></AccountManagement>}></Route>
+    <Route path='checkout' element={<CheckoutPage></CheckoutPage>}></Route>
     </Route>
 
 

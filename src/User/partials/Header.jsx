@@ -5,6 +5,7 @@ import { logout } from '../Reducer/authSlice';
 const Header = () => {
 
   const Token = useSelector((state) => state.auth.Token);
+  const ListCard =  useSelector(state => state.cart.Cart);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -70,7 +71,7 @@ const Header = () => {
                     transform: "translate(50%, -50%)", // Fine-tune positioning for smaller size
                   }}
                 >
-                  1
+                  {ListCard?.length}
                 </span>
               </div>
 

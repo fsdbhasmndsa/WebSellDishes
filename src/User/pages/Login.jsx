@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { loginSuccess } from '../Reducer/authSlice';
 import { useDispatch } from 'react-redux';
 const Login = () => {
-  const navigate =  useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -28,14 +28,23 @@ const Login = () => {
         }
       })
 
-      if(res.data.code == 200 )
-      {
+      if (res.data.code == 200) {
         toast.success("Login successful")
         dispatch(loginSuccess(res.data.Token))
         navigate("/")
+        if (localStorage.getItem("ListCart").length > 0) {
+          const items = localStorage.getItem("ListCart")
+          console.log("items",items)
+          await axios({
+            url: "http://localhost:8080/Cart/addalot", method: "POST", data:items , headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${res.data.Token}`
+            }
+          })
+          localStorage.setItem("ListCart",[])
+        }
       }
-      else
-      {
+      else {
         toast.error("Login failed")
         navigate("/login")
       }

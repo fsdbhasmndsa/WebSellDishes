@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { AddItemAction } from '../Reducer/CartReducer';
 
 const ListFood = () => {
   const [Listfruits, setListfruits] = useState([])
-
+  const dishPatch = useDispatch();
   const callAPIGetFruit = async () => {
     const res = await axios({ url: "http://localhost:8080/Product/getALL", method: "GET" })
     setListfruits(res.data.items);
@@ -68,7 +70,11 @@ const ListFood = () => {
                       boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
                       alignSelf: "center",
                     }}
-                    onClick={(event) => handleAddToCart(event, fruit)}
+                    onClick={(event) => {
+                      event.stopPropagation(); // Ngăn NavLink kích hoạt
+                      event.preventDefault(); // Ngăn điều hướng khi bấm vào nút
+                      dishPatch(AddItemAction(fruit))
+                    }}
                   >
                     <i className="bi bi-cart"></i>
                   </button>
