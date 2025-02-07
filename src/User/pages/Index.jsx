@@ -4,10 +4,10 @@ import ListCategory from "./ListCategory";
 import { NavLink } from "react-router-dom";
 const Index = () => {
   const products = [
-    { id: 1, name: "Icecream", description: "Chocolate & vanilla", price: 5.25, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
-    { id: 2, name: "Strawberries", description: "Fresh Strawberries", price: 10.25, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
-    { id: 3, name: "Chicken Kebab", description: "Mixed Kebab Plate", price: 8.25, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
-    { id: 4, name: "Fish Kebab", description: "Mixed Fish Kebab", price: 5.25, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
+    { id: "67a44aa88b53ab2f2c5d0f89", name: "Icecream", description: "Chocolate & vanilla", price: 5.25, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
+    { id: "67a413876e833f76673865e7", name: "Strawberries", description: "Fresh Strawberries", price: 10.25, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
+    { id: "67a43558a6e7d65ae0c88816", name: "Chicken Kebab", description: "Mixed Kebab Plate", price: 8.25, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
+    { id: "67a44a368b53ab2f2c5d0f83", name: "Fish Kebab", description: "Mixed Fish Kebab", price: 5.25, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
   ];
 
   return (
@@ -80,7 +80,7 @@ const Index = () => {
               >
                 <div className="row gy-4">
                   {products.map((product) => (
-                    <div className="col-6" key={product.id}>
+                    <NavLink to={`productDetail/${product._id}`} className="col-6" key={product.id}>
                       <div
                         className="text-center"
                         style={{
@@ -119,7 +119,7 @@ const Index = () => {
                           ${product.price.toFixed(2)}
                         </h6>
                       </div>
-                    </div>
+                    </NavLink>
                   ))}
                 </div>
               </div>
