@@ -42,6 +42,17 @@ module.exports.Register = async (req, res) => {
     }
 }
 
+module.exports.UpdateUser = async(req,res)=>{
+    const {phonenumber,fullname,address} =  req.body
+    const id= req.user._id
+   try {
+    await User.updateOne({_id:id,phonenumber:phonenumber,fullname:fullname,address:address})
+    res.json({code:200,message:"Update successful"})
+   } catch (error) {
+    res.json({code:400,message:"Update failed"})
+   }
+}
+
 module.exports.Fogotpassword = async (req, res) => {
 
 }

@@ -3,8 +3,8 @@ const router = express.Router();
 const OrderController =  require("../Controller/OrderController")
 
 
-router.get("CreateOrder",OrderController.CreateOrder)
+router.post("CreateOrder",OrderController.CreateOrder)
 router.get("ViewOrder",OrderController.ViewOrder)
-
+router.delete("DeleteOrder/:id",OrderController.DeleteOrder)
 
 module.exports = router

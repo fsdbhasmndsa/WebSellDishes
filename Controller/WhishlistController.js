@@ -33,3 +33,7 @@ module.exports.deleteWishlist = async (req,res)=>{
     }
 
 }
+
+module.exports.CheckWishList = async(req,res)=>{
+    
+}
