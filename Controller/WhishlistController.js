@@ -57,7 +57,8 @@ module.exports.CheckWishList = async (req, res) => {
         {
             choose = true
         }
-        res.json({ code: 200, message: "Successful",True:choose })
+        console.log("first")
+        res.json({ code: 200, message: "Successful",status:choose })
     } catch (error) {
         res.json({ code: 400, message: "Failed" })
     }

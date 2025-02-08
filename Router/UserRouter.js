@@ -9,5 +9,6 @@ router.get("/forgotpassword",UserController.Fogotpassword)
 router.get("/changepassword",UserController.Changepassword)
 router.put("/UpdateUser",auth.auth,UserController.UpdateUser)
 router.get("/viewUser",auth.auth,UserController.ViewUser)
+router.post("/loginWithGoogle",UserController.LoginWithGoogle)
 
 module.exports = router
