@@ -8,5 +8,6 @@ router.post("/register",UserController.Register)
 router.get("/forgotpassword",UserController.Fogotpassword)
 router.get("/changepassword",UserController.Changepassword)
 router.put("/UpdateUser",auth.auth,UserController.UpdateUser)
+router.get("/viewUser",auth.auth,UserController.ViewUser)
 
 module.exports = router

@@ -1,16 +1,16 @@
 const User = require("../Schema/userSchema")
 const Helper =  require("../Helper/GenerateToken")
-
+const Cart =  require("../Schema/cartSchema")
 module.exports.Login = async (req, res) => {
     const { username, password } = req.body;
-    console.log("first", username)
-    console.log("first", password)
     const user = await User.findOne({ username: username });
     if (user) {
         if (password != user.password) {
             res.json({ code: 400, message: "Login failed" })
         }
-        res.json({ code: 200, message: "Login failed", Token: user.Token })
+        const cart = new Cart({userId:user._id,items:[]})
+        const cartsave =  await cart.save()
+        res.json({ code: 200, message: "Login failed", Token: user.Token,IDCART:cartsave._id })
     }
     else {
         res.json({ code: 400, message: "Login failed" })
@@ -32,10 +32,14 @@ module.exports.Register = async (req, res) => {
             username:username,
             phonenumber:phonenumber,
             role:"User",
-            Token:Token
+            Token:Token,
+            address:""
         })
+          
 
-        await userCreate.save();
+       const user = await userCreate.save();
+      
+
         res.json({ code: 200, message: "Create successful" })
 
 
@@ -44,6 +48,7 @@ module.exports.Register = async (req, res) => {
 
 module.exports.UpdateUser = async(req,res)=>{
     const {phonenumber,fullname,address} =  req.body
+    console.log("address",address)
     const id= req.user._id
    try {
     await User.updateOne({_id:id,phonenumber:phonenumber,fullname:fullname,address:address})
@@ -51,6 +56,16 @@ module.exports.UpdateUser = async(req,res)=>{
    } catch (error) {
     res.json({code:400,message:"Update failed"})
    }
+}
+
+module.exports.ViewUser = async(req,res)=>{
+    const id = req.user._id
+    try {
+        const user =  await User.findOne({_id:id}).select("phonenumber fullname address")
+        res.json({code:200,message:"GET successful",User:user})
+    } catch (error) {
+        res.json({code:400,message:"GET failed"})
+    }
 }
 
 module.exports.Fogotpassword = async (req, res) => {
