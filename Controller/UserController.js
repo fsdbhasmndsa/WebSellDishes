@@ -1,6 +1,7 @@
 const User = require("../Schema/userSchema")
 const Helper =  require("../Helper/GenerateToken")
 const Cart =  require("../Schema/cartSchema")
+const wishlist = require("../Schema/wishlistSchema")
 module.exports.Login = async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username: username });
@@ -38,8 +39,7 @@ module.exports.Register = async (req, res) => {
           
 
        const user = await userCreate.save();
-      
-
+     
         res.json({ code: 200, message: "Create successful" })
 
 
