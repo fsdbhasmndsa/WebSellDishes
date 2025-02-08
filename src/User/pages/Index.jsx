@@ -27,12 +27,12 @@ const Index = () => {
                     fontSize: "0.9rem",
                   }}
                 >
-                  <img
+                  {/* <img
                     src="https://via.placeholder.com/20"
                     alt="Delivery Icon"
                     className="me-2"
                     style={{ width: "20px", height: "20px" }}
-                  />
+                  /> */}
                   Bike Delivery
                 </div>
 

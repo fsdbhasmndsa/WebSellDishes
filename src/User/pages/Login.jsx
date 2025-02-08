@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { useFormik } from 'formik'
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from "yup";
 import { loginSuccess } from '../Reducer/authSlice';
 import { useDispatch } from 'react-redux';
+import GoogleLoginButton from './GoogleLoginButton';
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -201,9 +202,9 @@ const Login = () => {
               </div>
 
               <div className="text-end mb-3">
-                <a href="#" className="text-success fw-bold" style={{ fontSize: "0.9rem" }}>
+                <NavLink to={"/forgotpassword"} className="text-success fw-bold" style={{ fontSize: "0.9rem" }}>
                   Forgot Password?
-                </a>
+                </NavLink>
               </div>
               <button
                 type="submit"
@@ -219,7 +220,8 @@ const Login = () => {
               </button>
 
               {/* Login with Google Button */}
-              <button
+              <GoogleLoginButton></GoogleLoginButton>
+              {/* <button
                 type="button"
                 className="btn btn-outline-secondary w-100 py-2 mt-3"
                 style={{
@@ -237,13 +239,13 @@ const Login = () => {
                   style={{ width: "20px", height: "20px", marginRight: "10px" }}
                 />
                 Login with Google
-              </button>
+              </button> */}
 
               <p className="text-center mt-4 mb-0" style={{ fontSize: "0.9rem", color: "#6c757d" }}>
                 Don't have an account?{" "}
-                <a href="#" className="text-success fw-bold">
+                <NavLink  to={"/register"} className="text-success fw-bold">
                   Sign Up
-                </a>
+                </NavLink>
               </p>
             </form>
           </div>
