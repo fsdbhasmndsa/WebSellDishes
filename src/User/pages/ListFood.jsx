@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { AddItemAction } from '../Reducer/CartReducer';
+import { AddItemAction, addToCart } from '../Reducer/CartReducer';
 
 const ListFood = () => {
   const [Listfruits, setListfruits] = useState([])
+  const Token = useSelector((state) => state.auth.Token);
+  const dispatch = useDispatch();
   const dishPatch = useDispatch();
   const callAPIGetFruit = async () => {
     const res = await axios({ url: "http://localhost:8080/Product/getALL", method: "GET" })
@@ -73,7 +75,14 @@ const ListFood = () => {
                     onClick={(event) => {
                       event.stopPropagation(); // Ngăn NavLink kích hoạt
                       event.preventDefault(); // Ngăn điều hướng khi bấm vào nút
-                      dishPatch(AddItemAction(fruit))
+                      if(Token)
+                      {
+                        dishPatch(addToCart({productId:fruit,quantity:1,token:Token}))
+                      }
+                      else{
+                        dishPatch(AddItemAction(fruit))
+                      }
+                     
                     }}
                   >
                     <i className="bi bi-cart"></i>

@@ -4,10 +4,10 @@ import ListCategory from "./ListCategory";
 import { NavLink } from "react-router-dom";
 const Index = () => {
   const products = [
-    { id: "67a44aa88b53ab2f2c5d0f89", name: "Icecream", description: "Chocolate & vanilla", price: 5.25, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
-    { id: "67a413876e833f76673865e7", name: "Strawberries", description: "Fresh Strawberries", price: 10.25, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
-    { id: "67a43558a6e7d65ae0c88816", name: "Chicken Kebab", description: "Mixed Kebab Plate", price: 8.25, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
-    { id: "67a44a368b53ab2f2c5d0f83", name: "Fish Kebab", description: "Mixed Fish Kebab", price: 5.25, img: "https://food-order-web-xi.vercel.app/static/media/f1.c52686695ee9a5c4cd0d.png" },
+    { id: "67a44aa88b53ab2f2c5d0f89", name: "Icecream", description: "Chocolate & vanilla", price: 5.25, img: "https://firebasestorage.googleapis.com/v0/b/foodapp-e3dd4.appspot.com/o/Images%2F1671072664597-%24(imageFile.name)?alt=media&token=d123f2c1-de85-4f36-903f-d0bb7de54a91" },
+    { id: "67a413876e833f76673865e7", name: "Strawberries", description: "Fresh Strawberries", price: 10.25, img: "https://firebasestorage.googleapis.com/v0/b/foodapp-e3dd4.appspot.com/o/Images%2F1671072554108-%24(imageFile.name)?alt=media&token=44deebb6-6d87-4334-a9a4-11a0c5b6e977" },
+    { id: "67a43558a6e7d65ae0c88816", name: "Chicken Kebab", description: "Mixed Kebab Plate", price: 8.25, img: "https://firebasestorage.googleapis.com/v0/b/foodapp-e3dd4.appspot.com/o/Images%2F1671070570438-%24(imageFile.name)?alt=media&token=dfff4369-132d-4ea2-86a4-fa7e9a509e18" },
+    { id: "67a44a368b53ab2f2c5d0f83", name: "Fish Kebab", description: "Mixed Fish Kebab", price: 5.25, img: "https://firebasestorage.googleapis.com/v0/b/foodapp-e3dd4.appspot.com/o/Images%2F1671072013318-%24(imageFile.name)?alt=media&token=d1749df3-145d-4d5d-ad31-e1359883f40e" },
   ];
 
   return (
@@ -80,7 +80,7 @@ const Index = () => {
               >
                 <div className="row gy-4">
                   {products.map((product) => (
-                    <NavLink to={`productDetail/${product._id}`} className="col-6" key={product.id}>
+                    <NavLink style={{textDecoration:'none'}} to={`productDetail/${product.id}`} className="col-6" key={product.id}>
                       <div
                         className="text-center"
                         style={{

@@ -22,13 +22,19 @@ const CheckoutPage = () => {
     toast.warning("Please choose the method!")
       return;
     }
-    if (!address.trim()) {
+    if (!address.trim() && paymentMethod!="Online Payment") {
       toast.warning(" Please enter your address!");
       return;
     }
 
     if (paymentMethod === "Online Payment") {
-      redirectToVNPay();
+      console.log("data",ListCard)
+      const url = await axios({url:"http://localhost:8080/Order/create-checkout-session",method:"POST",data:ListCard,
+        headers:{
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${Token}` // Thêm Bearer Token
+        }})
+        window.location.href = url.data.url
     } else {
       const address =  document.getElementById("address")?.value
       const value = { items: ListCard, total: totalAmount, address:address };
@@ -83,7 +89,7 @@ const CheckoutPage = () => {
             <div className="card-body">
               {ListCard.map((product) => (
                 <div
-                  key={product.id}
+                  key={product._id}
                   className="d-flex justify-content-between align-items-center border-bottom py-3"
                 >
                   <div className="d-flex align-items-center">

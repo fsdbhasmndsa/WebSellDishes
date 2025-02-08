@@ -12,31 +12,36 @@ import { ToastContainer } from 'react-toastify';
 import { Provider } from 'react-redux';
 import store from './User/Reducer/Store';
 import CheckoutPage from './User/pages/CheckoutPage';
+import About from "./User/pages/About"
+import Page404 from './User/pages/Page404';
 function App() {
+ 
   return (
-  <Provider store={store}>
-   <BrowserRouter>
-   <Routes>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
 
-    <Route path=''  element={<Layout></Layout>}>
+          <Route path='' element={<Layout></Layout>}>
 
-    <Route index element={<Index></Index>}></Route>
-    <Route path='login' element={<Login></Login>}></Route>
-    <Route path='register' element={<Register></Register>}></Route>
-    <Route path='cart' element={<Cart></Cart>}></Route>
-    <Route path='productDetail/:id' element={<ProductDetail></ProductDetail>}></Route>
-    <Route path='profile' element={<AccountManagement></AccountManagement>}></Route>
-    <Route path='checkout' element={<CheckoutPage></CheckoutPage>}></Route>
-    </Route>
+            <Route index element={<Index></Index>}></Route>
+            <Route path='login' element={<Login></Login>}></Route>
+            <Route path='register' element={<Register></Register>}></Route>
+            <Route path='aboutus' element={<About></About>}></Route>
+            <Route path='cart' element={<Cart></Cart>}></Route>
+            <Route path='productDetail/:id' element={<ProductDetail></ProductDetail>}></Route>
+            <Route path='profile' element={<AccountManagement></AccountManagement>}></Route>
+            <Route path='checkout' element={<CheckoutPage></CheckoutPage>}></Route>
+            
+          </Route>
 
 
+          <Route path='*' element={<Page404></Page404>}> </Route>
+        </Routes>
 
-   </Routes>
-   
-   
-   <ToastContainer autoClose={3000} pauseOnHover={false} pauseOnFocusLoss={false} ></ToastContainer>
-   </BrowserRouter>
-   </Provider>
+
+        <ToastContainer autoClose={3000} pauseOnHover={false} pauseOnFocusLoss={false} ></ToastContainer>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

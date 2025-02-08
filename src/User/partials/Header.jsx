@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import { logout } from '../Reducer/authSlice';
+import { AutoClear } from '../Reducer/CartReducer';
 const Header = () => {
 
   const Token = useSelector((state) => state.auth.Token);
@@ -44,14 +45,14 @@ const Header = () => {
               </NavLink>
             </li>
             <li className="nav-item ms-4">
-              <a className="nav-link" href="#about">
+              <NavLink className="nav-link"to={"/aboutus"}>
                 About Us
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item ms-4">
-              <a className="nav-link" href="#services">
-                Services
-              </a>
+             <NavLink className="nav-link"to={"/aboutus"}>
+              Services
+              </NavLink>
             </li>
             <li className="nav-item ms-5">
               <div className="nav-link position-relative">
@@ -103,6 +104,7 @@ const Header = () => {
                   <li>
                     <NavLink to={"/"} onClick={()=>{
                       dispatch(logout())
+                      dispatch(AutoClear())
                     }} className="dropdown-item bg-white text-dark" >Logout</NavLink>
                   </li> </> : <>
 

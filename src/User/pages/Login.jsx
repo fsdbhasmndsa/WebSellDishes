@@ -31,12 +31,13 @@ const Login = () => {
       if (res.data.code == 200) {
         toast.success("Login successful")
         dispatch(loginSuccess(res.data.Token))
+        localStorage.setItem("IDCART",res.data.IDCART)
         navigate("/")
         if (localStorage.getItem("ListCart").length > 0) {
           const items = localStorage.getItem("ListCart")
-          console.log("items",items)
+          
           await axios({
-            url: "http://localhost:8080/Cart/addalot", method: "POST", data:items , headers: {
+            url: `http://localhost:8080/Cart/addalot/${res.data.IDCART}`, method: "POST", data:items , headers: {
               "Content-Type": "application/json",
               "Authorization": `Bearer ${res.data.Token}`
             }

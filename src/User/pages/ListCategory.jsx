@@ -1,13 +1,15 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-import { AddItemAction } from "../Reducer/CartReducer";
-import { useDispatch } from "react-redux";
+import { AddItemAction, addToCart } from "../Reducer/CartReducer";
+import { useDispatch, useSelector } from "react-redux";
 
 const ListCategory = () => {
   const [listFruits, setListFruits] = useState([]);
   const [dishes, setDishes] = useState([]);
   const [active, setActive] = useState("");
+  const Token = useSelector((state) => state.auth.Token);
+  const dispatch = useDispatch();
   const dishPatch = useDispatch();
 
   const fetchCategoriesAndDishes = useCallback(async () => {
@@ -81,7 +83,7 @@ const ListCategory = () => {
                 to={`productDetail/${fruit._id}`}
                 key={fruit._id}
                 className="col-12 col-md-4 col-lg-3 d-flex align-items-stretch"
-                style={{textDecoration:'none'}}
+                style={{ textDecoration: 'none' }}
               >
                 <div
                   className="card flex-row w-100"
@@ -120,7 +122,13 @@ const ListCategory = () => {
                       onClick={(event) => {
                         event.stopPropagation(); // Ngăn NavLink kích hoạt
                         event.preventDefault(); // Ngăn điều hướng khi bấm vào nút
-                        dishPatch(AddItemAction(fruit))
+                        if (Token) {
+                          dishPatch(addToCart({ productId: fruit, quantity: 1, token: Token }))
+                        }
+                        else {
+                          dishPatch(AddItemAction(fruit))
+                        }
+
                       }}
                       className="btn btn-outline-danger btn-sm rounded-circle"
                       style={{
